@@ -1,22 +1,25 @@
 SRC_DIR = src
 BIN_DIR = bin
 
-SOURCES := $(shell find $(SRC_DIR) -name '*.java')
-CLASSES := $(SOURCES:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
-
+# Java compiler and flags
 JAVAC = javac
 JFLAGS = -d $(BIN_DIR)
 
+# Main class to run
+MAIN_CLASS = com.craftinginterpreters.lox.Lox
+
+# Phony targets (not actual files)
 .PHONY: all clean run
 
-all: $(BIN_DIR)
-	$(JAVAC) $(JFLAGS) $(SOURCES)
+# Default target
+all:
+	@mkdir -p $(BIN_DIR)
+	$(JAVAC) $(JFLAGS) $(SRC_DIR)/com/craftinginterpreters/lox/*.java
 
-$(BIN_DIR):
-	mkdir -p $(BIN_DIR)
-
+# Clean compiled files
 clean:
 	rm -rf $(BIN_DIR)
 
+# Run the application
 run: all
-	java -cp $(BIN_DIR) com.craftinginterpreters.lox.Lox
+	java -cp $(BIN_DIR) $(MAIN_CLASS)

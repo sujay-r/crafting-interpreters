@@ -53,7 +53,7 @@ public class Lox {
         List<Token> tokens = scanner.scanTokens();
 
         for (Token token : tokens) {
-            System.out.println(token);
+            System.out.println(token.ToString());
         }
     }
 
